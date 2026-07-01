@@ -1,0 +1,11 @@
+
+body{font-family:Arial;margin:0;background:#f2f2f2;padding:15px}
+header{background:#b30000;color:#fff;padding:15px;border-radius:10px}
+#summe{font-size:32px;font-weight:bold}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:#fff;border-radius:12px;padding:12px;border:1px solid #ccc}
+.name{text-align:center;font-size:22px;font-weight:bold;margin-bottom:15px}
+.ctrl{display:grid;grid-template-columns:1fr 60px 1fr;gap:8px}
+.ctrl button{font-size:34px;height:70px}
+.count{display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:bold}
+.panel{margin-top:20px;background:#fff;padding:12px;border-radius:10px}
