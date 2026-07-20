@@ -24,9 +24,11 @@ button{width:46px;height:46px;font-size:24px}
 <div class="wrap">
 <div class="header">
 <h1>🔥 Sportfreund</h1>
-<div style="display:flex;align-items:center;gap:12px;">
-<span style="font-size:22px;font-weight:bold;">Grillhütte</span>
-<div id="gesamt">0,00 €</div>
+<div id="summaryBox" style="position:fixed;top:10px;right:10px;background:#fff;border:2px solid #b30000;border-radius:10px;padding:10px;min-width:190px;z-index:9999;">
+<div style="font-size:20px;font-weight:bold;">Grillhütte</div>
+<div>Gesamt: <span id="gesamt">0,00 €</span></div>
+<div>Bezahlt: <span id="bezahltAnzeige">0,00 €</span></div>
+<div>Rückgeld: <span id="rueckgeldTop">0,00 €</span></div>
 </div>
 </div>
 
@@ -44,15 +46,16 @@ button{width:46px;height:46px;font-size:24px}
 <h2>♻️ Pfand</h2>
 <div class="row"><div class="info"><div class="name">Pfand zurück</div></div><button onclick="pfm()">−</button><div id="pf" class="count">0</div><button onclick="pfp()">+</button></div>
 
-<div style="margin:6px 0 12px 150px;">
+<div style="margin:6px 0 12px 150px;position:relative;">
 <label style="font-size:12px;color:#666;">Pfandwert pro Getränk</label><br>
-<input id="pfandwert" type="number" step="0.01" value="0.00" style="width:80px;">
+<button id="pfandAuswahl" onclick="togglePfandPopup()" style="width:170px;height:36px;font-size:16px;text-align:left;padding:0 10px;">Pfand: 20 ct ▼</button>
+<div id="pfandPopup" style="display:none;position:absolute;top:42px;left:0;background:#fff;border:1px solid #999;border-radius:8px;padding:4px;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:1000;">
+<button style="display:block;width:160px;height:34px;font-size:14px;" onclick="setPfand(0)">Kein Pfand</button>
+<button style="display:block;width:160px;height:34px;font-size:14px;" onclick="setPfand(0.2)">20 ct</button>
+<button style="display:block;width:160px;height:34px;font-size:14px;" onclick="setPfand(0.3)">30 ct</button>
+<button style="display:block;width:160px;height:34px;font-size:14px;" onclick="setPfand(0.5)">50 ct</button>
 </div>
-
-
-
-
-
+</div>
 <div style="margin:15px 0;padding:12px;border:1px solid #ccc;border-radius:8px;background:#fff;">
 <h2>💶 Bezahlt</h2>
 
@@ -80,28 +83,44 @@ Rückgeld: <span id="rueckgeld">0,00 €</span>
 
 <script>
 let sum=0;
+let pfandwert=0.20;
 const c={g250:0,g200:0,g100:0,e350:0,e300:0,e250:0,e200:0,pf:0};
-function update(){gesamt.textContent=sum.toFixed(2).replace(".",",")+" €";for(const k in c)document.getElementById(k).textContent=c[k]}
+function update(){
+gesamt.textContent=sum.toFixed(2).replace(".",",")+" €";
+for(const k in c)document.getElementById(k).textContent=c[k];
+berechneRueckgeld();
+}
+function togglePfandPopup(){
+ const p=document.getElementById('pfandPopup');
+ p.style.display=p.style.display==='block'?'none':'block';
+}
+function setPfand(v){
+ pfandwert=v;
+ localStorage.setItem('pfandwert',v);
+ const txt=v===0?'Kein Pfand':Math.round(v*100)+' ct';
+ document.getElementById('pfandAuswahl').textContent='Pfand: '+txt+' ▼';
+ document.getElementById('pfandPopup').style.display='none';
+}
 function plus(id,p){
- const pf=parseFloat(document.getElementById('pfandwert')?.value||0);
+ const pf=pfandwert;
  c[id]++;sum+=p;
  if(id.startsWith('g')) sum+=pf;
  update();
 }
 function minus(id,p){
  if(c[id]>0){
-  const pf=parseFloat(document.getElementById('pfandwert')?.value||0);
+  const pf=pfandwert;
   c[id]--;sum-=p;
   if(id.startsWith('g')) sum-=pf;
   update();
  }
 }
 function pfp(){
- const pf=parseFloat(document.getElementById('pfandwert')?.value||0);
+ const pf=pfandwert;
  c.pf++;sum-=pf;update();
 }
 function pfm(){
- const pf=parseFloat(document.getElementById('pfandwert')?.value||0);
+ const pf=pfandwert;
  if(c.pf>0){c.pf--;sum+=pf;update();}
 }
 function resetAll(){
@@ -124,6 +143,8 @@ function zeigeRueckgeld(bez){
  const r=Math.max(0,bez-sum);
  document.getElementById('bezahlt').value=bez.toFixed(2);
  document.getElementById('rueckgeld').textContent=r.toFixed(2).replace('.',',')+' €';
+document.getElementById('bezahltAnzeige').textContent=bez.toFixed(2).replace('.',',')+' €';
+document.getElementById('rueckgeldTop').textContent=r.toFixed(2).replace('.',',')+' €';
 }
 function setBezahlt(b){
  const feld=document.getElementById('bezahlt');
@@ -139,6 +160,7 @@ function berechneRueckgeld(){
 }
 
 update();
+const s=parseFloat(localStorage.getItem('pfandwert'));setPfand(isNaN(s)?0.20:s);update();
 </script>
 </body>
 </html>
