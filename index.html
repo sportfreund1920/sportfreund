@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Grillhütte</title>
+<title>Abrechnung</title>
 <style>
 body{font-family:Arial,sans-serif;background:#f3f3f3;margin:0}
 .wrap{max-width:620px;margin:auto;padding:10px}
@@ -25,10 +25,10 @@ button{width:46px;height:46px;font-size:24px}
 <div class="header">
 <h1>🔥 Sportfreund</h1>
 <div id="summaryBox" style="position:fixed;top:10px;right:10px;background:#fff;border:2px solid #b30000;border-radius:10px;padding:10px;min-width:190px;z-index:9999;">
-<div style="font-size:20px;font-weight:bold;">Grillhütte</div>
+<div style="font-size:20px;font-weight:bold;">Abrechnung</div>
 <div>Gesamt: <span id="gesamt">0,00 €</span></div>
-<div>Bezahlt: <span id="bezahltAnzeige">0,00 €</span></div>
-<div>Rückgeld: <span id="rueckgeldTop">0,00 €</span></div>
+<div style="font-size:22px;font-weight:bold;">Bezahlt: <span id="bezahltAnzeige">0,00 €</span></div>
+<div style="font-size:22px;font-weight:bold;">Rückgeld: <span id="rueckgeldTop">0,00 €</span></div>
 </div>
 </div>
 
@@ -73,17 +73,13 @@ button{width:46px;height:46px;font-size:24px}
 <button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(20)">20 €</button>
 <button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(50)">50 €</button>
 <button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(100)">100 €</button>
-<button style="width:70px;height:38px;font-size:16px;" onclick="clearBezahlt()">C</button>
+<button style="width:70px;height:38px;font-size:16px;" onclick="clearBezahlt()">Löschen</button>
 </div>
 </div>
 
-<div style="margin-bottom:10px;">
-<input id="bezahlt" type="number" step="0.01" placeholder="Bezahlt" readonly style="font-size:22px;padding:6px;width:170px;font-weight:bold;background:#f7f7f7;">
-</div>
+<input id="bezahlt" type="hidden" value="0">
 
-<div style="font-size:24px;font-weight:bold;">
-Rückgeld: <span id="rueckgeld">0,00 €</span>
-</div>
+<span id="rueckgeld" style="display:none">0,00 €</span>
 </div>
 
 <button class="reset" onclick="resetAll()">Neuer Vorgang</button>
@@ -91,12 +87,18 @@ Rückgeld: <span id="rueckgeld">0,00 €</span>
 
 <script>
 let sum=0;
+let bezahlt=0;
 let pfandwert=0.20;
 const c={g250:0,g200:0,g100:0,e350:0,e300:0,e250:0,e200:0,pf:0};
-function update(){
-gesamt.textContent=sum.toFixed(2).replace(".",",")+" €";
-for(const k in c)document.getElementById(k).textContent=c[k];
-berechneRueckgeld();
+
+function sync(){
+  document.getElementById('gesamt').textContent=sum.toFixed(2).replace('.',',')+' €';
+  document.getElementById('bezahlt').value=bezahlt;
+  document.getElementById('bezahltAnzeige').textContent=bezahlt.toFixed(2).replace('.',',')+' €';
+  const rueck=Math.max(0,bezahlt-sum).toFixed(2).replace('.',',')+' €';
+  document.getElementById('rueckgeld').textContent=rueck;
+  document.getElementById('rueckgeldTop').textContent=rueck;
+  Object.keys(c).forEach(k=>document.getElementById(k).textContent=c[k]);
 }
 function togglePfandPopup(){
  const p=document.getElementById('pfandPopup');
@@ -105,70 +107,19 @@ function togglePfandPopup(){
 function setPfand(v){
  pfandwert=v;
  localStorage.setItem('pfandwert',v);
- const txt=v===0?'Kein Pfand':Math.round(v*100)+' ct';
- document.getElementById('pfandAuswahl').textContent='Pfand: '+txt+' ▼';
+ document.getElementById('pfandAuswahl').textContent='Pfand: '+(v===0?'Kein Pfand':Math.round(v*100)+' ct')+' ▼';
  document.getElementById('pfandPopup').style.display='none';
 }
-function plus(id,p){
- const pf=pfandwert;
- c[id]++;sum+=p;
- if(id.startsWith('g')) sum+=pf;
- update();
-}
-function minus(id,p){
- if(c[id]>0){
-  const pf=pfandwert;
-  c[id]--;sum-=p;
-  if(id.startsWith('g')) sum-=pf;
-  update();
- }
-}
-function pfp(){
- const pf=pfandwert;
- c.pf++;sum-=pf;update();
-}
-function pfm(){
- const pf=pfandwert;
- if(c.pf>0){c.pf--;sum+=pf;update();}
-}
-function resetAll(){
-  sum=0;
-  for(const k in c) c[k]=0;
-  document.getElementById('bezahlt').value='';
-  document.getElementById('rueckgeld').textContent='0,00 €';
-  update();
-}
-
-function berechneRueckgeld(){
-  const bezahlt=parseFloat(document.getElementById('bezahlt').value.replace(',','.'))||0;
-  const rueck=bezahlt-sum;
-  document.getElementById('rueckgeld').textContent=
-    (rueck>=0?rueck:0).toFixed(2).replace('.',',')+' €';
-}
-
-
-function zeigeRueckgeld(bez){
- const r=Math.max(0,bez-sum);
- document.getElementById('bezahlt').value=bez.toFixed(2);
- document.getElementById('rueckgeld').textContent=r.toFixed(2).replace('.',',')+' €';
-document.getElementById('bezahltAnzeige').textContent=bez.toFixed(2).replace('.',',')+' €';
-document.getElementById('rueckgeldTop').textContent=r.toFixed(2).replace('.',',')+' €';
-}
-function setBezahlt(b){
- const feld=document.getElementById('bezahlt');
- const alt=parseFloat((feld.value||'0').replace(',','.'))||0;
- zeigeRueckgeld(alt+b);
-}
-function clearBezahlt(){
- zeigeRueckgeld(0);
-}
-function berechneRueckgeld(){
- const b=parseFloat((document.getElementById('bezahlt').value||'0').replace(',','.'))||0;
- zeigeRueckgeld(b);
-}
-
-update();
-const s=parseFloat(localStorage.getItem('pfandwert'));setPfand(isNaN(s)?0.20:s);update();
+function plus(id,p){c[id]++;sum+=p;if(id.startsWith('g'))sum+=pfandwert;sync();}
+function minus(id,p){if(c[id]){c[id]--;sum-=p;if(id.startsWith('g'))sum-=pfandwert;sync();}}
+function pfp(){c.pf++;sum-=pfandwert;sync();}
+function pfm(){if(c.pf){c.pf--;sum+=pfandwert;sync();}}
+function setBezahlt(v){bezahlt+=v;sync();}
+function clearBezahlt(){bezahlt=0;sync();}
+function resetAll(){sum=0;bezahlt=0;Object.keys(c).forEach(k=>c[k]=0);sync();}
+const s=parseFloat(localStorage.getItem('pfandwert'));
+setPfand(isNaN(s)?0.2:s);
+sync();
 </script>
 </body>
 </html>
