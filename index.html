@@ -68,7 +68,6 @@ button{width:46px;height:46px;font-size:24px}
 <div style="margin-bottom:10px;">
 <input id="bezahlt" type="number" step="0.01" placeholder="Eigener Betrag"
  style="font-size:20px;padding:6px;width:170px;">
-<button onclick="berechneRueckgeld()" style="width:auto;height:auto;padding:8px 12px;font-size:18px;">Berechnen</button>
 </div>
 
 <div style="font-size:24px;font-weight:bold;">
@@ -105,7 +104,13 @@ function pfm(){
  const pf=parseFloat(document.getElementById('pfandwert')?.value||0);
  if(c.pf>0){c.pf--;sum+=pf;update();}
 }
-function resetAll(){sum=0;for(const k in c)c[k]=0;update();}
+function resetAll(){
+  sum=0;
+  for(const k in c) c[k]=0;
+  document.getElementById('bezahlt').value='';
+  document.getElementById('rueckgeld').textContent='0,00 €';
+  update();
+}
 
 function berechneRueckgeld(){
   const bezahlt=parseFloat(document.getElementById('bezahlt').value.replace(',','.'))||0;
