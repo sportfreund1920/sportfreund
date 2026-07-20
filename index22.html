@@ -44,34 +44,7 @@ button{width:46px;height:46px;font-size:24px}
 <h2>♻️ Pfand</h2>
 <div class="row"><div class="info"><div class="name">Pfand zurück</div></div><button onclick="pfm()">−</button><div id="pf" class="count">0</div><button onclick="pfp()">+</button></div>
 
-
-
-
-
-<div style="margin:15px 0;padding:12px;border:1px solid #ccc;border-radius:8px;background:#fff;">
-<h2>💶 Bezahlt</h2>
-
-<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
-<button style="width:90px;" onclick="setBezahlt(5)">5 €</button>
-<button style="width:90px;" onclick="setBezahlt(10)">10 €</button>
-<button style="width:90px;" onclick="setBezahlt(20)">20 €</button>
-<button style="width:90px;" onclick="setBezahlt(50)">50 €</button>
-<button style="width:90px;" onclick="setBezahlt(100)">100 €</button>
-<button style="width:120px;" onclick="passend()">Passend</button>
-</div>
-
-<div style="margin-bottom:10px;">
-<input id="bezahlt" type="number" step="0.01" placeholder="Eigener Betrag"
- style="font-size:20px;padding:6px;width:170px;">
-<button onclick="berechneRueckgeld()" style="width:auto;height:auto;padding:8px 12px;font-size:18px;">Berechnen</button>
-</div>
-
-<div style="font-size:24px;font-weight:bold;">
-Rückgeld: <span id="rueckgeld">0,00 €</span>
-</div>
-</div>
-
-<button class="reset" onclick="resetAll()">Neuer Vorgang</button>
+<button class="reset" onclick="resetAll()">Zurücksetzen</button>
 </div>
 
 <script>
@@ -83,27 +56,6 @@ function minus(id,p){if(c[id]>0){c[id]--;sum-=p;update();}}
 function pfp(){c.pf++;sum-=0.2;update();}
 function pfm(){if(c.pf>0){c.pf--;sum+=0.2;update();}}
 function resetAll(){sum=0;for(const k in c)c[k]=0;update();}
-
-function berechneRueckgeld(){
-  const bezahlt=parseFloat(document.getElementById('bezahlt').value.replace(',','.'))||0;
-  const rueck=bezahlt-sum;
-  document.getElementById('rueckgeld').textContent=
-    (rueck>=0?rueck:0).toFixed(2).replace('.',',')+' €';
-}
-
-
-function zeigeRueckgeld(bez){
- const r=Math.max(0,bez-sum);
- document.getElementById('bezahlt').value=bez.toFixed(2);
- document.getElementById('rueckgeld').textContent=r.toFixed(2).replace('.',',')+' €';
-}
-function setBezahlt(b){zeigeRueckgeld(b);}
-function passend(){zeigeRueckgeld(sum);}
-function berechneRueckgeld(){
- const b=parseFloat((document.getElementById('bezahlt').value||'0').replace(',','.'))||0;
- zeigeRueckgeld(b);
-}
-
 update();
 </script>
 </body>
