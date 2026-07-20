@@ -1,60 +1,115 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Grillhütte</title>
 <style>
-body{font-family:Arial,sans-serif;max-width:650px;margin:20px auto;padding:10px}
-h1,h2{text-align:center}
-#gesamt{font-size:48px;font-weight:bold;color:#b30000;text-align:center;margin:15px 0 30px}
-.row{display:flex;align-items:center;gap:8px;margin:8px 0}
-.label{width:220px;font-weight:bold}
-.count{width:28px;text-align:center;font-weight:bold}
-button{width:42px;height:42px;font-size:20px}
-.reset{width:220px;height:50px;font-size:18px;margin-top:20px}
+body{font-family:Arial,sans-serif;background:#f3f3f3;margin:0}
+.wrap{max-width:620px;margin:auto;padding:10px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.header h1{margin:0;font-size:28px}
+#gesamt{font-size:40px;font-weight:bold;color:#b30000}
+h2{
+    font-size:20px;
+    margin:8px 0 2px;
+    padding-left:0;
+    text-align:left;
+}
+.row {
+    display: grid;
+    grid-template-columns: 150px 50px 36px 50px;
+    align-items: center;
+    column-gap: 3px;
+    justify-content: start;
+    margin: 2px 0;
+}
+.info{
+    display:flex;
+    flex-direction:column;
+    width:150px;
+}
+.name{font-size:20px}
+.note{font-size:11px;color:#666}
+button{width:46px;height:46px;font-size:24px}
+.count{text-align:center;font-size:20px;font-weight:bold}
+.reset{
+    display:block;
+    width:220px;
+    margin:4px auto;
+    padding:12px;
+    font-size:18px;
+    font-weight:bold;
+    border-radius:8px;
+}
 </style>
 </head>
 <body>
-
-<h1>🔥 Grillhütte</h1>
-<div id="gesamt">0,00 €</div>
+<div class="wrap">
+<div class="header"><h1>🔥 Sportfreund</h1><div style="display:flex;align-items:center;gap:12px;"><span style="font-size:22px;font-weight:bold;">Grillhütte</span><div id="gesamt">0,00 €</div></div></div>
 
 <h2>🥤 Getränke</h2>
 
-<div class="row"><div class="label">Getränke 2,50 €</div><button onclick="drinkMinus('g250',2.50)">-</button><div class="count" id="g250">0</div><button onclick="drinkPlus('g250',2.50)">+</button></div>
-<div class="row"><div class="label">Getränke 2,00 €</div><button onclick="drinkMinus('g200',2.00)">-</button><div class="count" id="g200">0</div><button onclick="drinkPlus('g200',2.00)">+</button></div>
-<div class="row"><div class="label">Getränke 1,00 €</div><button onclick="drinkMinus('g100',1.00)">-</button><div class="count" id="g100">0</div><button onclick="drinkPlus('g100',1.00)">+</button></div>
+<div class="row"><div class="info"><div class="name">Getränke 2,50 €</div><div class="note">zzgl. 0,20 € Pfand</div></div><button onclick="minus('g250',2.7)">−</button><div id="g250" class="count">0</div><button onclick="plus('g250',2.7)">+</button></div>
+
+<div class="row"><div class="info"><div class="name">Getränke 2,00 €</div><div class="note">zzgl. 0,20 € Pfand</div></div><button onclick="minus('g200',2.2)">−</button><div id="g200" class="count">0</div><button onclick="plus('g200',2.2)">+</button></div>
+
+<div class="row"><div class="info"><div class="name">Getränke 1,00 €</div><div class="note">zzgl. 0,20 € Pfand</div></div><button onclick="minus('g100',1.2)">−</button><div id="g100" class="count">0</div><button onclick="plus('g100',1.2)">+</button></div>
 
 <h2>🍽️ Essen</h2>
+<h2>🍽️ Essen</h2>
 
-<div class="row"><div class="label">Essen 3,50 €</div><button onclick="foodMinus('e350',3.50)">-</button><div class="count" id="e350">0</div><button onclick="foodPlus('e350',3.50)">+</button></div>
-<div class="row"><div class="label">Essen 3,00 €</div><button onclick="foodMinus('e300',3.00)">-</button><div class="count" id="e300">0</div><button onclick="foodPlus('e300',3.00)">+</button></div>
-<div class="row"><div class="label">Essen 2,50 €</div><button onclick="foodMinus('e250',2.50)">-</button><div class="count" id="e250">0</div><button onclick="foodPlus('e250',2.50)">+</button></div>
-<div class="row"><div class="label">Essen 2,00 €</div><button onclick="foodMinus('e200',2.00)">-</button><div class="count" id="e200">0</div><button onclick="foodPlus('e200',2.00)">+</button></div>
+<div class="row">
+    <div class="info"><div class="name">Essen 3,50 €</div></div>
+    <button onclick="minus('e350',3.5)">−</button>
+    <div id="e350" class="count">0</div>
+    <button onclick="plus('e350',3.5)">+</button>
+</div>
+
+<div class="row">
+    <div class="info"><div class="name">Essen 3,00 €</div></div>
+    <button onclick="minus('e300',3)">−</button>
+    <div id="e300" class="count">0</div>
+    <button onclick="plus('e300',3)">+</button>
+</div>
+
+<div class="row">
+    <div class="info"><div class="name">Essen 2,50 €</div></div>
+    <button onclick="minus('e250',2.5)">−</button>
+    <div id="e250" class="count">0</div>
+    <button onclick="plus('e250',2.5)">+</button>
+</div>
+
+<div class="row">
+    <div class="info"><div class="name">Essen 2,00 €</div></div>
+    <button onclick="minus('e200',2)">−</button>
+    <div id="e200" class="count">0</div>
+    <button onclick="plus('e200',2)">+</button>
+</div>
 
 <h2>♻️ Pfand</h2>
-<div class="row"><div class="label">Pfand zurück</div><button onclick="pfandMinus()">-</button><div class="count" id="pfand">0</div><button onclick="pfandPlus()">+</button></div>
+
+<div class="row">
+    <div class="info"><div class="name">Pfand zurück</div></div>
+    <button onclick="pfm()">−</button>
+    <div id="pf" class="count">0</div>
+    <button onclick="pfp()">+</button>
+</div>
 
 <button class="reset" onclick="resetAll()">Zurücksetzen</button>
+<button class="reset" onclick="resetAll()">Zurücksetzen</button>
+</div>
 
 <script>
-let gesamt=0;
-let counts={g250:0,g200:0,g100:0,e350:0,e300:0,e250:0,e200:0,pfand:0};
-
-function update(){
- document.getElementById("gesamt").innerText=gesamt.toFixed(2).replace(".",",")+" €";
- for (const k in counts){document.getElementById(k).innerText=counts[k];}
-}
-function drinkPlus(id,preis){counts[id]++;gesamt+=preis+0.20;update();}
-function drinkMinus(id,preis){if(counts[id]>0){counts[id]--;gesamt-=preis+0.20;update();}}
-function foodPlus(id,preis){counts[id]++;gesamt+=preis;update();}
-function foodMinus(id,preis){if(counts[id]>0){counts[id]--;gesamt-=preis;update();}}
-function pfandPlus(){counts.pfand++;gesamt-=0.20;update();}
-function pfandMinus(){if(counts.pfand>0){counts.pfand--;gesamt+=0.20;update();}}
-function resetAll(){gesamt=0;for(const k in counts){counts[k]=0;}update();}
+let sum=0;
+const c={g250:0,g200:0,g100:0,e350:0,e300:0,e250:0,e200:0,pf:0};
+function update(){gesamt.textContent=sum.toFixed(2).replace(".",",")+" €";for(const k in c)document.getElementById(k).textContent=c[k]}
+function plus(id,p){c[id]++;sum+=p;update();}
+function minus(id,p){if(c[id]>0){c[id]--;sum-=p;update();}}
+function pfp(){c.pf++;sum-=0.2;update();}
+function pfm(){if(c.pf>0){c.pf--;sum+=0.2;update();}}
+function resetAll(){sum=0;for(const k in c)c[k]=0;update();}
 update();
 </script>
-
-</body>
-</html>
+</body></html>
