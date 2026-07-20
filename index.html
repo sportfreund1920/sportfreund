@@ -31,9 +31,9 @@ button{width:46px;height:46px;font-size:24px}
 </div>
 
 <h2>🥤 Getränke</h2>
-<div class="row"><div class="info"><div class="name">Getränke 2,50 €</div><div class="note">zzgl. 0,20 € Pfand</div></div><button onclick="minus('g250',2.7)">−</button><div id="g250" class="count">0</div><button onclick="plus('g250',2.7)">+</button></div>
-<div class="row"><div class="info"><div class="name">Getränke 2,00 €</div><div class="note">zzgl. 0,20 € Pfand</div></div><button onclick="minus('g200',2.2)">−</button><div id="g200" class="count">0</div><button onclick="plus('g200',2.2)">+</button></div>
-<div class="row"><div class="info"><div class="name">Getränke 1,00 €</div><div class="note">zzgl. 0,20 € Pfand</div></div><button onclick="minus('g100',1.2)">−</button><div id="g100" class="count">0</div><button onclick="plus('g100',1.2)">+</button></div>
+<div class="row"><div class="info"><div class="name">Getränke 2,50 €</div><div class="note">zzgl. Pfand</div></div><button onclick="minus('g250',2.5)">−</button><div id="g250" class="count">0</div><button onclick="plus('g250',2.5)">+</button></div>
+<div class="row"><div class="info"><div class="name">Getränke 2,00 €</div><div class="note">zzgl. Pfand</div></div><button onclick="minus('g200',2.0)">−</button><div id="g200" class="count">0</div><button onclick="plus('g200',2.0)">+</button></div>
+<div class="row"><div class="info"><div class="name">Getränke 1,00 €</div><div class="note">zzgl. Pfand</div></div><button onclick="minus('g100',1.0)">−</button><div id="g100" class="count">0</div><button onclick="plus('g100',1.0)">+</button></div>
 
 <h2>🍽️ Essen</h2>
 <div class="row"><div class="info"><div class="name">Essen 3,50 €</div></div><button onclick="minus('e350',3.5)">−</button><div id="e350" class="count">0</div><button onclick="plus('e350',3.5)">+</button></div>
@@ -43,6 +43,11 @@ button{width:46px;height:46px;font-size:24px}
 
 <h2>♻️ Pfand</h2>
 <div class="row"><div class="info"><div class="name">Pfand zurück</div></div><button onclick="pfm()">−</button><div id="pf" class="count">0</div><button onclick="pfp()">+</button></div>
+
+<div style="margin:6px 0 12px 150px;">
+<label style="font-size:12px;color:#666;">Pfandwert pro Getränk</label><br>
+<input id="pfandwert" type="number" step="0.01" value="0.00" style="width:80px;">
+</div>
 
 
 
@@ -57,7 +62,7 @@ button{width:46px;height:46px;font-size:24px}
 <button style="width:90px;" onclick="setBezahlt(20)">20 €</button>
 <button style="width:90px;" onclick="setBezahlt(50)">50 €</button>
 <button style="width:90px;" onclick="setBezahlt(100)">100 €</button>
-<button style="width:120px;" onclick="passend()">Passend</button>
+<button style="width:120px;" onclick="clearBezahlt()">Löschen</button>
 </div>
 
 <div style="margin-bottom:10px;">
@@ -78,10 +83,28 @@ Rückgeld: <span id="rueckgeld">0,00 €</span>
 let sum=0;
 const c={g250:0,g200:0,g100:0,e350:0,e300:0,e250:0,e200:0,pf:0};
 function update(){gesamt.textContent=sum.toFixed(2).replace(".",",")+" €";for(const k in c)document.getElementById(k).textContent=c[k]}
-function plus(id,p){c[id]++;sum+=p;update();}
-function minus(id,p){if(c[id]>0){c[id]--;sum-=p;update();}}
-function pfp(){c.pf++;sum-=0.2;update();}
-function pfm(){if(c.pf>0){c.pf--;sum+=0.2;update();}}
+function plus(id,p){
+ const pf=parseFloat(document.getElementById('pfandwert')?.value||0);
+ c[id]++;sum+=p;
+ if(id.startsWith('g')) sum+=pf;
+ update();
+}
+function minus(id,p){
+ if(c[id]>0){
+  const pf=parseFloat(document.getElementById('pfandwert')?.value||0);
+  c[id]--;sum-=p;
+  if(id.startsWith('g')) sum-=pf;
+  update();
+ }
+}
+function pfp(){
+ const pf=parseFloat(document.getElementById('pfandwert')?.value||0);
+ c.pf++;sum-=pf;update();
+}
+function pfm(){
+ const pf=parseFloat(document.getElementById('pfandwert')?.value||0);
+ if(c.pf>0){c.pf--;sum+=pf;update();}
+}
 function resetAll(){sum=0;for(const k in c)c[k]=0;update();}
 
 function berechneRueckgeld(){
@@ -97,8 +120,14 @@ function zeigeRueckgeld(bez){
  document.getElementById('bezahlt').value=bez.toFixed(2);
  document.getElementById('rueckgeld').textContent=r.toFixed(2).replace('.',',')+' €';
 }
-function setBezahlt(b){zeigeRueckgeld(b);}
-function passend(){zeigeRueckgeld(sum);}
+function setBezahlt(b){
+ const feld=document.getElementById('bezahlt');
+ const alt=parseFloat((feld.value||'0').replace(',','.'))||0;
+ zeigeRueckgeld(alt+b);
+}
+function clearBezahlt(){
+ zeigeRueckgeld(0);
+}
 function berechneRueckgeld(){
  const b=parseFloat((document.getElementById('bezahlt').value||'0').replace(',','.'))||0;
  zeigeRueckgeld(b);
