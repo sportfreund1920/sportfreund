@@ -59,18 +59,26 @@ button{width:46px;height:46px;font-size:24px}
 <div style="margin:15px 0;padding:12px;border:1px solid #ccc;border-radius:8px;background:#fff;">
 <h2>💶 Bezahlt</h2>
 
-<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
-<button style="width:90px;" onclick="setBezahlt(5)">5 €</button>
-<button style="width:90px;" onclick="setBezahlt(10)">10 €</button>
-<button style="width:90px;" onclick="setBezahlt(20)">20 €</button>
-<button style="width:90px;" onclick="setBezahlt(50)">50 €</button>
-<button style="width:90px;" onclick="setBezahlt(100)">100 €</button>
-<button style="width:120px;" onclick="clearBezahlt()">Löschen</button>
+<div style="position:absolute;right:10px;top:260px;display:flex;gap:6px;z-index:9998;">
+<div style="display:flex;flex-direction:column;gap:6px;">
+<button style="width:60px;height:38px;font-size:16px;" onclick="setBezahlt(0.1)">10 ct</button>
+<button style="width:60px;height:38px;font-size:16px;" onclick="setBezahlt(0.2)">20 ct</button>
+<button style="width:60px;height:38px;font-size:16px;" onclick="setBezahlt(0.5)">50 ct</button>
+<button style="width:60px;height:38px;font-size:16px;" onclick="setBezahlt(1)">1 €</button>
+<button style="width:60px;height:38px;font-size:16px;" onclick="setBezahlt(2)">2 €</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;">
+<button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(5)">5 €</button>
+<button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(10)">10 €</button>
+<button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(20)">20 €</button>
+<button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(50)">50 €</button>
+<button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(100)">100 €</button>
+<button style="width:70px;height:38px;font-size:16px;" onclick="clearBezahlt()">C</button>
+</div>
 </div>
 
 <div style="margin-bottom:10px;">
-<input id="bezahlt" type="number" step="0.01" placeholder="Eigener Betrag"
- style="font-size:20px;padding:6px;width:170px;">
+<input id="bezahlt" type="number" step="0.01" placeholder="Bezahlt" readonly style="font-size:22px;padding:6px;width:170px;font-weight:bold;background:#f7f7f7;">
 </div>
 
 <div style="font-size:24px;font-weight:bold;">
