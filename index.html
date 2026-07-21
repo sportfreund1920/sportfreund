@@ -32,9 +32,7 @@ button{width:46px;height:46px;font-size:24px}
 <div id="gesamt" style="font-size:38px;font-weight:bold;color:#b30000;text-align:right;">0,00 €</div>
 </div>
 
-<div style="background:#e8f2ff;padding:4px 8px;border-bottom:1px solid #ddd;">
-<div style="font-size:15px;color:#0d47a1;">Bezahlt</div>
-<div id="bezahltAnzeige" style="font-size:30px;font-weight:bold;color:#0d47a1;text-align:right;">0,00 €</div>
+
 </div>
 
 <div style="background:#e9f9ec;padding:4px 8px;">
@@ -132,6 +130,11 @@ function resetAll(){sum=0;bezahlt=0;Object.keys(c).forEach(k=>c[k]=0);sync();}
 const s=parseFloat(localStorage.getItem('pfandwert'));
 setPfand(isNaN(s)?0.2:s);
 sync();
+</script>
+
+<script>
+document.addEventListener('dblclick', function(e){ e.preventDefault(); }, {passive:false});
+document.addEventListener('gesturestart', function(e){ e.preventDefault(); }, {passive:false});
 </script>
 </body>
 </html>
