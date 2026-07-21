@@ -100,22 +100,22 @@ button{width:46px;height:46px;font-size:24px;color:#000}
 </div>
 
 <script>
-let sum=0;
-let bezahlt=0;
-let pfandwert=0.20;
-const c={g250:0,g200:0,g100:0,e350:0,e300:0,e250:0,e200:0,pf:0};
+var sum=0;
+var bezahlt=0;
+var pfandwert=0.20;
+var c={g250:0,g200:0,g100:0,e350:0,e300:0,e250:0,e200:0,pf:0};
 
 function sync(){
   document.getElementById('gesamt').textContent=sum.toFixed(2).replace('.',',')+' €';
   document.getElementById('bezahlt').value=bezahlt;
   document.getElementById('bezahltAnzeige').textContent=bezahlt.toFixed(2).replace('.',',')+' €';
-  const rueck=Math.max(0,bezahlt-sum).toFixed(2).replace('.',',')+' €';
+  var rueck=Math.max(0,bezahlt-sum).toFixed(2).replace('.',',')+' €';
   document.getElementById('rueckgeld').textContent=rueck;
   document.getElementById('rueckgeldTop').textContent=rueck;
   Object.keys(c).forEach(k=>document.getElementById(k).textContent=c[k]);
 }
 function togglePfandPopup(){
- const p=document.getElementById('pfandPopup');
+ var p=document.getElementById('pfandPopup');
  p.style.display=p.style.display==='block'?'none':'block';
 }
 function setPfand(v){
@@ -124,14 +124,14 @@ function setPfand(v){
  document.getElementById('pfandAuswahl').textContent='Pfand: '+(v===0?'Kein Pfand':Math.round(v*100)+' ct')+' ▼';
  document.getElementById('pfandPopup').style.display='none';
 }
-function plus(id,p){c[id]++;sum+=p;if(id.startsWith('g'))sum+=pfandwert;sync();}
-function minus(id,p){if(c[id]){c[id]--;sum-=p;if(id.startsWith('g'))sum-=pfandwert;sync();}}
+function plus(id,p){c[id]++;sum+=p;if(id.indexOf('g')===0)sum+=pfandwert;sync();}
+function minus(id,p){if(c[id]){c[id]--;sum-=p;if(id.indexOf('g')===0)sum-=pfandwert;sync();}}
 function pfp(){c.pf++;sum-=pfandwert;sync();}
 function pfm(){if(c.pf){c.pf--;sum+=pfandwert;sync();}}
 function setBezahlt(v){bezahlt+=v;sync();}
 function clearBezahlt(){bezahlt=0;sync();}
 function resetAll(){sum=0;bezahlt=0;Object.keys(c).forEach(k=>c[k]=0);sync();}
-const s=parseFloat(localStorage.getItem('pfandwert'));
+var s=parseFloat(localStorage.getItem('pfandwert'));
 setPfand(isNaN(s)?0.2:s);
 sync();
 </script>
