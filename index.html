@@ -24,15 +24,14 @@ button{width:46px;height:46px;font-size:24px}
 <div class="wrap">
 <div class="header">
 <h1>🔥 Sportfreund</h1>
-<div id="summaryBox" style="position:fixed;top:10px;right:10px;width:205px;background:#fff;border:2px solid #b30000;border-radius:12px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.2);z-index:9999;">
-<div style="background:#b30000;color:#fff;font-size:20px;font-weight:bold;padding:4px 8px;">Abrechnung</div>
-
-<div style="padding:4px 8px;border-bottom:1px solid #ddd;">
-<div style="font-size:15px;color:#555;">Gesamt</div>
-<div id="gesamt" style="font-size:38px;font-weight:bold;color:#b30000;text-align:right;">0,00 €</div>
+<div id="summaryBox" style="position:fixed;top:10px;right:10px;width:240px;background:#fff;border:2px solid #b30000;border-radius:14px;box-shadow:0 4px 10px rgba(0,0,0,.2);overflow:hidden;z-index:9999;">
+<div style="background:#b30000;color:#fff;padding:8px;font-size:22px;font-weight:bold;">Abrechnung</div>
+<div style="padding:10px">
+<div style="font-size:15px">Gesamt:</div>
+<div id="gesamt" style="font-size:40px;font-weight:bold;color:#b30000;text-align:right;">0,00 €</div>
+<div style="margin-top:8px;font-size:15px"><b>Bezahlt:</b> <span id="bezahltAnzeige">0,00 €</span></div>
+<div style="margin-top:6px;font-size:15px"><b>Rückgeld:</b> <span id="rueckgeldTop">0,00 €</span></div>
 </div>
-
-
 </div>
 
 <div style="background:#e9f9ec;padding:4px 8px;">
@@ -66,9 +65,6 @@ button{width:46px;height:46px;font-size:24px}
 <button style="display:block;width:160px;height:34px;font-size:14px;" onclick="setPfand(0.5)">50 ct</button>
 </div>
 </div>
-<div style="margin:15px 0;padding:12px;border:1px solid #ccc;border-radius:8px;background:#fff;">
-<h2>💶 Bezahlt</h2>
-
 <div style="position:absolute;right:10px;top:260px;display:flex;gap:6px;z-index:9998;">
 <div style="display:flex;flex-direction:column;gap:6px;">
 <button style="width:60px;height:38px;font-size:16px;" onclick="setBezahlt(0.1)">10 ct</button>
@@ -90,7 +86,6 @@ button{width:46px;height:46px;font-size:24px}
 <input id="bezahlt" type="hidden" value="0">
 
 <span id="rueckgeld" style="display:none">0,00 €</span>
-</div>
 
 <button class="reset" onclick="resetAll()">Neuer Vorgang</button>
 </div>
