@@ -1,135 +1,88 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Abrechnung</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Sportfreund</title>
 <style>
-body{font-family:Arial,sans-serif;background:#f3f3f3;margin:0}
-.wrap{max-width:620px;margin:auto;padding:10px}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.header h1{margin:0;font-size:28px}
-#gesamt{font-size:40px;font-weight:bold;color:#b30000}
-h2{font-size:20px;margin:8px 0 2px;padding-left:0;text-align:left;}
-.row{display:grid;grid-template-columns:150px 50px 36px 50px;align-items:center;column-gap:3px;justify-content:start;margin:2px 0;}
-.info{display:flex;flex-direction:column;width:150px;}
-.name{font-size:20px}
-.note{font-size:11px;color:#666}
-button{width:46px;height:46px;font-size:24px}
-.count{text-align:center;font-size:20px;font-weight:bold}
-.reset{display:block;width:220px;margin:4px auto;padding:12px;font-size:18px;font-weight:bold;border-radius:8px}
+body{font-family:Arial,sans-serif;background:#f4f4f4;margin:0}
+.wrap{display:grid;grid-template-columns:1fr 280px;gap:24px;max-width:1250px;margin:auto;padding:20px}
+h1{font-size:46px;margin:0 0 20px}
+.section{margin-bottom:24px}
+.row{display:grid;grid-template-columns:230px 60px 50px 60px;gap:8px;align-items:center;margin:8px 0}
+button{height:52px;font-size:24px;border-radius:8px}
+.count{text-align:center;font-size:28px;font-weight:bold}
+.panel{border:2px solid #b30000;border-radius:14px;background:#fff;overflow:hidden}
+.panel h2{margin:0;background:#b30000;color:#fff;padding:10px 14px}
+.box{padding:14px}
+.total{font-size:60px;color:#c00000;font-weight:bold;text-align:right}
+.changeTitle{margin-top:18px;color:#0b8d2a;font-size:22px;font-weight:bold}
+.change{font-size:56px;color:#0b8d2a;font-weight:bold;text-align:right}
+.money{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
+.money button{font-size:22px;height:48px}
+.delete{grid-column:2}
+.paidbox{margin-top:14px;border:2px solid #0b8d2a;border-radius:10px;background:#fff;padding:10px;text-align:center}
+.paidbox .t{font-size:18px;color:#555}
+.paidbox .v{font-size:42px;color:#0b8d2a;font-weight:bold}
+.reset{margin-top:28px;width:100%;height:56px;font-size:24px}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="header">
+<div>
 <h1>🔥 Sportfreund</h1>
-<div id="summaryBox" style="position:fixed;top:10px;right:10px;width:240px;background:#fff;border:2px solid #b30000;border-radius:14px;box-shadow:0 4px 10px rgba(0,0,0,.2);overflow:hidden;z-index:9999;">
-<div style="background:#b30000;color:#fff;padding:8px;font-size:22px;font-weight:bold;">Abrechnung</div>
-<div style="padding:10px">
-<div style="font-size:15px">Gesamt:</div>
-<div id="gesamt" style="font-size:40px;font-weight:bold;color:#b30000;text-align:right;">0,00 €</div>
-<div style="margin-top:8px;font-size:15px"><b>Bezahlt:</b> <span id="bezahltAnzeige">0,00 €</span></div>
-<div style="margin-top:6px;font-size:15px"><b>Rückgeld:</b> <span id="rueckgeldTop">0,00 €</span></div>
+
+<div class="section"><h2>🥤 Getränke</h2>
+<div class="row"><div>Getränke 2,50 €<br><small>zzgl. Pfand</small></div><button>-</button><div class="count">0</div><button>+</button></div>
+<div class="row"><div>Getränke 2,00 €<br><small>zzgl. Pfand</small></div><button>-</button><div class="count">0</div><button>+</button></div>
+<div class="row"><div>Getränke 1,00 €<br><small>zzgl. Pfand</small></div><button>-</button><div class="count">0</div><button>+</button></div>
+</div>
+
+<div class="section"><h2>🍽️ Essen</h2>
+<div class="row"><div>Essen 3,50 €</div><button>-</button><div class="count">0</div><button>+</button></div>
+<div class="row"><div>Essen 3,00 €</div><button>-</button><div class="count">0</div><button>+</button></div>
+<div class="row"><div>Essen 2,50 €</div><button>-</button><div class="count">0</div><button>+</button></div>
+<div class="row"><div>Essen 2,00 €</div><button>-</button><div class="count">0</div><button>+</button></div>
+</div>
+
+<div class="section"><h2>♻️ Pfand</h2>
+<div class="row"><div>Pfand zurück</div><button>-</button><div class="count">0</div><button>+</button></div>
+</div>
+
+<button class="reset">Neuer Vorgang</button>
+</div>
+
+<div>
+<div class="panel">
+<h2>Abrechnung</h2>
+<div class="box">
+<div>Gesamt</div>
+<div class="total">0,00 €</div>
+<div class="changeTitle">Rückgeld</div>
+<div class="change">0,00 €</div>
 </div>
 </div>
 
-<div style="background:#e9f9ec;padding:4px 8px;">
-<div style="font-size:15px;color:#0b7a0b;">Rückgeld</div>
-<div id="rueckgeldTop" style="font-size:34px;font-weight:bold;color:#0b7a0b;text-align:right;">0,00 €</div>
-</div>
-</div>
-</div>
-
-<h2>🥤 Getränke</h2>
-<div class="row"><div class="info"><div class="name">Getränke 2,50 €</div><div class="note">zzgl. Pfand</div></div><button onclick="minus('g250',2.5)">−</button><div id="g250" class="count">0</div><button onclick="plus('g250',2.5)">+</button></div>
-<div class="row"><div class="info"><div class="name">Getränke 2,00 €</div><div class="note">zzgl. Pfand</div></div><button onclick="minus('g200',2.0)">−</button><div id="g200" class="count">0</div><button onclick="plus('g200',2.0)">+</button></div>
-<div class="row"><div class="info"><div class="name">Getränke 1,00 €</div><div class="note">zzgl. Pfand</div></div><button onclick="minus('g100',1.0)">−</button><div id="g100" class="count">0</div><button onclick="plus('g100',1.0)">+</button></div>
-
-<h2>🍽️ Essen</h2>
-<div class="row"><div class="info"><div class="name">Essen 3,50 €</div></div><button onclick="minus('e350',3.5)">−</button><div id="e350" class="count">0</div><button onclick="plus('e350',3.5)">+</button></div>
-<div class="row"><div class="info"><div class="name">Essen 3,00 €</div></div><button onclick="minus('e300',3)">−</button><div id="e300" class="count">0</div><button onclick="plus('e300',3)">+</button></div>
-<div class="row"><div class="info"><div class="name">Essen 2,50 €</div></div><button onclick="minus('e250',2.5)">−</button><div id="e250" class="count">0</div><button onclick="plus('e250',2.5)">+</button></div>
-<div class="row"><div class="info"><div class="name">Essen 2,00 €</div></div><button onclick="minus('e200',2)">−</button><div id="e200" class="count">0</div><button onclick="plus('e200',2)">+</button></div>
-
-<h2>♻️ Pfand</h2>
-<div class="row"><div class="info"><div class="name">Pfand zurück</div></div><button onclick="pfm()">−</button><div id="pf" class="count">0</div><button onclick="pfp()">+</button></div>
-
-<div style="margin:6px 0 12px 150px;position:relative;">
-<label style="font-size:12px;color:#666;">Pfandwert pro Getränk</label><br>
-<button id="pfandAuswahl" onclick="togglePfandPopup()" style="width:170px;height:36px;font-size:16px;text-align:left;padding:0 10px;">Pfand: 20 ct ▼</button>
-<div id="pfandPopup" style="display:none;position:absolute;top:42px;left:0;background:#fff;border:1px solid #999;border-radius:8px;padding:4px;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:1000;">
-<button style="display:block;width:160px;height:34px;font-size:14px;" onclick="setPfand(0)">Kein Pfand</button>
-<button style="display:block;width:160px;height:34px;font-size:14px;" onclick="setPfand(0.2)">20 ct</button>
-<button style="display:block;width:160px;height:34px;font-size:14px;" onclick="setPfand(0.3)">30 ct</button>
-<button style="display:block;width:160px;height:34px;font-size:14px;" onclick="setPfand(0.5)">50 ct</button>
-</div>
-</div>
-<div style="position:absolute;right:10px;top:260px;display:flex;gap:6px;z-index:9998;">
-<div style="display:flex;flex-direction:column;gap:6px;">
-<button style="width:60px;height:38px;font-size:16px;" onclick="setBezahlt(0.1)">10 ct</button>
-<button style="width:60px;height:38px;font-size:16px;" onclick="setBezahlt(0.2)">20 ct</button>
-<button style="width:60px;height:38px;font-size:16px;" onclick="setBezahlt(0.5)">50 ct</button>
-<button style="width:60px;height:38px;font-size:16px;" onclick="setBezahlt(1)">1 €</button>
-<button style="width:60px;height:38px;font-size:16px;" onclick="setBezahlt(2)">2 €</button>
-</div>
-<div style="display:flex;flex-direction:column;gap:6px;">
-<button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(5)">5 €</button>
-<button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(10)">10 €</button>
-<button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(20)">20 €</button>
-<button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(50)">50 €</button>
-<button style="width:70px;height:38px;font-size:16px;" onclick="setBezahlt(100)">100 €</button>
-<button style="width:70px;height:38px;font-size:16px;" onclick="clearBezahlt()">Löschen</button>
-</div>
+<div class="money">
+<button>10 ct</button><button>5 €</button>
+<button>20 ct</button><button>10 €</button>
+<button>50 ct</button><button>20 €</button>
+<button>1 €</button><button>50 €</button>
+<button>2 €</button><button>100 €</button>
+<button></button><button class="delete">Löschen</button>
 </div>
 
-<input id="bezahlt" type="hidden" value="0">
-
-<span id="rueckgeld" style="display:none">0,00 €</span>
-
-<button class="reset" onclick="resetAll()">Neuer Vorgang</button>
+<div class="paidbox">
+<div class="t">Bezahlt</div>
+<div class="v">0,00 €</div>
 </div>
 
+</div>
+</div>
 <script>
-let sum=0;
-let bezahlt=0;
-let pfandwert=0.20;
-const c={g250:0,g200:0,g100:0,e350:0,e300:0,e250:0,e200:0,pf:0};
-
-function sync(){
-  document.getElementById('gesamt').textContent=sum.toFixed(2).replace('.',',')+' €';
-  document.getElementById('bezahlt').value=bezahlt;
-  document.getElementById('bezahltAnzeige').textContent=bezahlt.toFixed(2).replace('.',',')+' €';
-  const rueck=Math.max(0,bezahlt-sum).toFixed(2).replace('.',',')+' €';
-  document.getElementById('rueckgeld').textContent=rueck;
-  document.getElementById('rueckgeldTop').textContent=rueck;
-  Object.keys(c).forEach(k=>document.getElementById(k).textContent=c[k]);
-}
-function togglePfandPopup(){
- const p=document.getElementById('pfandPopup');
- p.style.display=p.style.display==='block'?'none':'block';
-}
-function setPfand(v){
- pfandwert=v;
- localStorage.setItem('pfandwert',v);
- document.getElementById('pfandAuswahl').textContent='Pfand: '+(v===0?'Kein Pfand':Math.round(v*100)+' ct')+' ▼';
- document.getElementById('pfandPopup').style.display='none';
-}
-function plus(id,p){c[id]++;sum+=p;if(id.startsWith('g'))sum+=pfandwert;sync();}
-function minus(id,p){if(c[id]){c[id]--;sum-=p;if(id.startsWith('g'))sum-=pfandwert;sync();}}
-function pfp(){c.pf++;sum-=pfandwert;sync();}
-function pfm(){if(c.pf){c.pf--;sum+=pfandwert;sync();}}
-function setBezahlt(v){bezahlt+=v;sync();}
-function clearBezahlt(){bezahlt=0;sync();}
-function resetAll(){sum=0;bezahlt=0;Object.keys(c).forEach(k=>c[k]=0);sync();}
-const s=parseFloat(localStorage.getItem('pfandwert'));
-setPfand(isNaN(s)?0.2:s);
-sync();
-</script>
-
-<script>
-document.addEventListener('dblclick', function(e){ e.preventDefault(); }, {passive:false});
-document.addEventListener('gesturestart', function(e){ e.preventDefault(); }, {passive:false});
+document.addEventListener('dblclick',e=>e.preventDefault(),{passive:false});
+document.addEventListener('gesturestart',e=>e.preventDefault(),{passive:false});
 </script>
 </body>
 </html>
