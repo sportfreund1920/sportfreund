@@ -24,9 +24,26 @@ button{width:46px;height:46px;font-size:24px;color:#000;display:flex;align-items
 html,body{
 touch-action:manipulation;
 -ms-touch-action:manipulation;
+overflow:hidden;
+position:fixed;
+width:100%;
+height:100%;
+overscroll-behavior:none;
 }
 button{
 touch-action:manipulation;
+-webkit-appearance:none;
+appearance:none;
+border-radius:0;
+outline:none;
+-webkit-tap-highlight-color:transparent;
+}
+button:focus,
+button:active,
+button:focus-visible{
+outline:none!important;
+box-shadow:none!important;
+border-radius:0!important;
 }
 </style>
 
@@ -145,6 +162,11 @@ function resetAll(){sum=0;bezahlt=0;Object.keys(c).forEach(k=>c[k]=0);sync();}
 const s=parseFloat(localStorage.getItem('pfandwert'));
 setPfand(isNaN(s)?0.2:s);
 sync();
+
+document.querySelectorAll('button').forEach(btn=>{
+  btn.addEventListener('click',()=>btn.blur());
+});
+
 </script>
 </body>
 </html>
