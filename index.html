@@ -103,19 +103,19 @@ border-radius:0!important;
 
 <div style="position:absolute;right:200px;top:260px;display:flex;gap:10px;z-index:9998;">
 <div style="display:flex;flex-direction:column;gap:6px;">
-<button style="width:125px;height:62px;font-size:26px;color:#000;background:#d9d9d9;" onclick="setBezahlt(0.1)">10 ct</button>
-<button style="width:125px;height:62px;font-size:26px;color:#000;background:#d9d9d9;" onclick="setBezahlt(0.2)">20 ct</button>
-<button style="width:125px;height:62px;font-size:26px;color:#000;background:#d9d9d9;" onclick="setBezahlt(0.5)">50 ct</button>
-<button style="width:125px;height:62px;font-size:26px;color:#000;background:#d4af37;" onclick="setBezahlt(1)">1 €</button>
-<button style="width:125px;height:62px;font-size:26px;color:#000;background:#d4af37;" onclick="setBezahlt(2)">2 €</button>
+<button style="width:125px;height:62px;font-size:26px;color:#000;" style="width:125px;height:62px;font-size:26px;color:#000;background:#c8a64b;" onclick="setBezahlt(0.1)">10 ct</button>
+<button style="width:125px;height:62px;font-size:26px;color:#000;" style="width:125px;height:62px;font-size:26px;color:#000;background:#c8a64b;" onclick="setBezahlt(0.2)">20 ct</button>
+<button style="width:125px;height:62px;font-size:26px;color:#000;" style="width:125px;height:62px;font-size:26px;color:#000;background:#c8a64b;" onclick="setBezahlt(0.5)">50 ct</button>
+<button style="width:125px;height:62px;font-size:26px;color:#000;" style="width:125px;height:62px;font-size:26px;color:#000;background:#d4af37;" onclick="setBezahlt(1)">1 €</button>
+<button style="width:125px;height:62px;font-size:26px;color:#000;" style="width:125px;height:62px;font-size:26px;color:#000;background:#d4af37;" onclick="setBezahlt(2)">2 €</button>
 </div>
 <div style="display:flex;flex-direction:column;gap:6px;">
-<button style="width:140px;height:62px;font-size:26px;color:#000;background:#cfd8dc;" onclick="setBezahlt(5)">5 €</button>
-<button style="width:140px;height:62px;font-size:26px;color:#000;background:#ef9a9a;" onclick="setBezahlt(10)">10 €</button>
-<button style="width:140px;height:62px;font-size:26px;color:#000;background:#90caf9;" onclick="setBezahlt(20)">20 €</button>
-<button style="width:140px;height:62px;font-size:26px;color:#000;background:#ffcc80;" onclick="setBezahlt(50)">50 €</button>
-<button style="width:140px;height:62px;font-size:26px;color:#000;background:#a5d6a7;" onclick="setBezahlt(100)">100 €</button>
-<button style="width:140px;height:62px;font-size:26px;color:#000;background:#eeeeee;" onclick="clearBezahlt()">Löschen</button>
+<button style="width:140px;height:62px;font-size:26px;color:#000;" style="width:140px;height:62px;font-size:26px;color:#000;background:#a9c98b;" onclick="setBezahlt(5)">5 €</button>
+<button style="width:140px;height:62px;font-size:26px;color:#000;" style="width:140px;height:62px;font-size:26px;color:#000;background:#e79a98;" onclick="setBezahlt(10)">10 €</button>
+<button style="width:140px;height:62px;font-size:26px;color:#000;" style="width:140px;height:62px;font-size:26px;color:#000;background:#89bdf0;" onclick="setBezahlt(20)">20 €</button>
+<button style="width:140px;height:62px;font-size:26px;color:#000;" style="width:140px;height:62px;font-size:26px;color:#000;background:#f0b56c;" onclick="setBezahlt(50)">50 €</button>
+<button style="width:140px;height:62px;font-size:26px;color:#000;" style="width:140px;height:62px;font-size:26px;color:#000;background:#8dcf8d;" onclick="setBezahlt(100)">100 €</button>
+<button style="width:140px;height:62px;font-size:26px;color:#000;" style="width:140px;height:62px;font-size:26px;color:#000;background:#eeeeee;" onclick="clearBezahlt()">Löschen</button>
 </div>
 </div>
 
@@ -168,5 +168,16 @@ document.querySelectorAll('button').forEach(btn=>{
 });
 
 </script>
+
+<script>
+document.addEventListener('dblclick',function(e){e.preventDefault();},{passive:false});
+let lastTouchEnd=0;
+document.addEventListener('touchend',function(e){
+ const now=Date.now();
+ if(now-lastTouchEnd<=300){e.preventDefault();}
+ lastTouchEnd=now;
+},{passive:false});
+</script>
+
 </body>
 </html>
