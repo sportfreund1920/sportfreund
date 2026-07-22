@@ -11,13 +11,13 @@ body{font-family:Arial,sans-serif;background:#f3f3f3;margin:0}
 .header h1{margin:0;font-size:28px}
 #gesamt{font-size:40px;font-weight:bold;color:#b30000}
 h2{font-size:20px;margin:8px 0 2px;padding-left:0;text-align:left;}
-.row{display:grid;grid-template-columns:184px 88px 36px 88px;align-items:center;column-gap:6px;justify-content:start;margin:2px 0;}
-.info{display:flex;flex-direction:column;width:184px;}
-.name{font-size:22px}
-.note{font-size:13px;color:#666}
+.row{display:grid;grid-template-columns:190px 92px 38px 92px;align-items:center;column-gap:6px;justify-content:start;margin:2px 0;}
+.info{display:flex;flex-direction:column;width:190px;}
+.name{font-size:23px}
+.note{font-size:14px;color:#666}
 button{width:46px;height:46px;font-size:24px;color:#000;display:flex;align-items:center;justify-content:center;padding:0;line-height:1}
 .count{text-align:center;font-size:20px;font-weight:bold}
-.reset{position:fixed;right:330px;top:398px;width:320px;height:62px;padding:0;font-size:26px;font-weight:bold;border-radius:0;}
+.reset{position:fixed;right:330px;top:511px;width:320px;height:62px;padding:0;font-size:26px;font-weight:bold;border-radius:0;}
 </style>
 
 <style>
@@ -73,23 +73,23 @@ border-radius:0!important;
 </div>
 
 <h2>🥤 Getränke</h2>
-<div class="row"><div class="info"><div class="name">Getränke 2,50 €</div><div class="note">zzgl. Pfand</div></div><button style="width:88px;height:50px;font-size:38px;" onclick="plus('g250',2.5)">+</button><div id="g250" class="count">0</div><button style="width:88px;height:50px;font-size:38px;" onclick="minus('g250',2.5)">−</button></div>
-<div class="row"><div class="info"><div class="name">Getränke 2,00 €</div><div class="note">zzgl. Pfand</div></div><button style="width:88px;height:50px;font-size:38px;" onclick="plus('g200',2.0)">+</button><div id="g200" class="count">0</div><button style="width:88px;height:50px;font-size:38px;" onclick="minus('g200',2.0)">−</button></div>
-<div class="row"><div class="info"><div class="name">Getränke 1,00 €</div><div class="note">zzgl. Pfand</div></div><button style="width:88px;height:50px;font-size:38px;" onclick="plus('g100',1.0)">+</button><div id="g100" class="count">0</div><button style="width:88px;height:50px;font-size:38px;" onclick="minus('g100',1.0)">−</button></div>
+<div class="row"><div class="info"><div class="name">Getränke 2,50 €</div><div class="note">zzgl. Pfand</div></div><button style="width:92px;height:52px;font-size:40px;" onclick="plus('g250',2.5)">+</button><div id="g250" class="count">0</div><button style="width:92px;height:52px;font-size:40px;" onclick="minus('g250',2.5)">−</button></div>
+<div class="row"><div class="info"><div class="name">Getränke 2,00 €</div><div class="note">zzgl. Pfand</div></div><button style="width:92px;height:52px;font-size:40px;" onclick="plus('g200',2.0)">+</button><div id="g200" class="count">0</div><button style="width:92px;height:52px;font-size:40px;" onclick="minus('g200',2.0)">−</button></div>
+<div class="row"><div class="info"><div class="name">Getränke 1,00 €</div><div class="note">zzgl. Pfand</div></div><button style="width:92px;height:52px;font-size:40px;" onclick="plus('g100',1.0)">+</button><div id="g100" class="count">0</div><button style="width:92px;height:52px;font-size:40px;" onclick="minus('g100',1.0)">−</button></div>
 
 <h2>🍽️ Essen</h2>
-<div class="row"><div class="info"><div class="name">Essen 3,50 €</div></div><button style="width:88px;height:50px;font-size:38px;" onclick="plus('e350',3.5)">+</button><div id="e350" class="count">0</div><button style="width:88px;height:50px;font-size:38px;" onclick="minus('e350',3.5)">−</button></div>
-<div class="row"><div class="info"><div class="name">Essen 3,00 €</div></div><button style="width:88px;height:50px;font-size:38px;" onclick="plus('e300',3)">+</button><div id="e300" class="count">0</div><button style="width:88px;height:50px;font-size:38px;" onclick="minus('e300',3)">−</button></div>
-<div class="row"><div class="info"><div class="name">Essen 2,50 €</div></div><button style="width:88px;height:50px;font-size:38px;" onclick="plus('e250',2.5)">+</button><div id="e250" class="count">0</div><button style="width:88px;height:50px;font-size:38px;" onclick="minus('e250',2.5)">−</button></div>
-<div class="row"><div class="info"><div class="name">Essen 2,00 €</div></div><button style="width:88px;height:50px;font-size:38px;" onclick="plus('e200',2)">+</button><div id="e200" class="count">0</div><button style="width:88px;height:50px;font-size:38px;" onclick="minus('e200',2)">−</button></div>
+<div class="row"><div class="info"><div class="name">Essen 3,50 €</div></div><button style="width:92px;height:52px;font-size:40px;" onclick="plus('e350',3.5)">+</button><div id="e350" class="count">0</div><button style="width:92px;height:52px;font-size:40px;" onclick="minus('e350',3.5)">−</button></div>
+<div class="row"><div class="info"><div class="name">Essen 3,00 €</div></div><button style="width:92px;height:52px;font-size:40px;" onclick="plus('e300',3)">+</button><div id="e300" class="count">0</div><button style="width:92px;height:52px;font-size:40px;" onclick="minus('e300',3)">−</button></div>
+<div class="row"><div class="info"><div class="name">Essen 2,50 €</div></div><button style="width:92px;height:52px;font-size:40px;" onclick="plus('e250',2.5)">+</button><div id="e250" class="count">0</div><button style="width:92px;height:52px;font-size:40px;" onclick="minus('e250',2.5)">−</button></div>
+<div class="row"><div class="info"><div class="name">Essen 2,00 €</div></div><button style="width:92px;height:52px;font-size:40px;" onclick="plus('e200',2)">+</button><div id="e200" class="count">0</div><button style="width:92px;height:52px;font-size:40px;" onclick="minus('e200',2)">−</button></div>
 
 <h2>♻️ Pfand</h2>
-<div class="row"><div class="info"><div class="name">Pfand zurück</div></div><button style="width:88px;height:50px;font-size:38px;" onclick="pfp()">+</button><div id="pf" class="count">0</div><button style="width:88px;height:50px;font-size:38px;" onclick="pfm()">−</button></div>
+<div class="row"><div class="info"><div class="name">Pfand zurück</div></div><button style="width:92px;height:52px;font-size:40px;" onclick="pfp()">+</button><div id="pf" class="count">0</div><button style="width:92px;height:52px;font-size:40px;" onclick="pfm()">−</button></div>
 
 <div style="margin:6px 0 12px 150px;position:relative;">
 <label style="font-size:12px;color:#666;">Pfandwert pro Getränk</label><br>
 <button id="pfandAuswahl" onclick="togglePfandPopup()" style="width:170px;height:36px;font-size:16px;text-align:left;padding:0 10px;">Pfand: 20 ct ▼</button>
-<div id="pfandPopup" style="display:none;position:absolute;top:42px;left:0;background:#fff;border:1px solid #999;border-radius:8px;padding:4px;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:1000;">
+<div id="pfandPopup" style="display:none;position:absolute;bottom:42px;left:0;background:#fff;border:1px solid #999;border-radius:8px;padding:4px;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:1000;">
 <button style="display:block;width:160px;height:34px;font-size:14px;" onclick="setPfand(0)">Kein Pfand</button>
 <button style="display:block;width:160px;height:34px;font-size:14px;" onclick="setPfand(0.2)">20 ct</button>
 <button style="display:block;width:160px;height:34px;font-size:14px;" onclick="setPfand(0.3)">30 ct</button>
